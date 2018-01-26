@@ -1,0 +1,25 @@
+{
+  "name": "playbook-jquery-node-mysql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.16.2",
+    "mysql": "^2.15.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lauraqb/playbook-jquery-node-mysql.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lauraqb/playbook-jquery-node-mysql/issues"
+  },
+  "homepage": "https://github.com/lauraqb/playbook-jquery-node-mysql#readme"
+}
