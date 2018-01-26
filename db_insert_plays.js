@@ -1,4 +1,35 @@
+var CryptoJS = require("crypto-js");
 var mysql = require('mysql');
+var encrypted_playbook = "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";
+var alternative_playbook = [ 
+    [ 'RAMBO triple option derecha', 'option 1: FB, opt.2: QB (keep), opt.3: RB (pitch)' ],
+    [ 'LIMBO triple option izquierda', 'option 1: FB, opt.2: QB (keep), opt.3: RB (pitch)' ],
+    [ 'RAMBO sprint option derecha', 'option 1: FB, opt.2: QB (keep), opt.3: RB (pitch)' ],
+    [ 'LIMBO sprint option izquierda', 'option 1: FB, opt.2: QB (keep), opt.3: RB (pitch)' ],
+    [ 'RAMBO ISO derecha', '' ],    
+    [ 'LIMBO ISO izquierda', '' ],
+    [ 'RAMBO POWER derecha', '' ],
+    [ 'RAMBO POWER izquierda', '' ],
+    [ 'RAMBO POWER PASS derecha', 'ruta 1' ],
+    [ 'LIMBO POWER PASS izquierda', '1' ],
+    [ 'FLEX SWITCH PASS', 'doble 8' ],
+    [ 'FLEX OUT PASS', 'doble 7' ]
+];
+var playbook;
+var key = process.argv[3];
+if(key != undefined) {
+    var bytes  = CryptoJS.AES.decrypt(encrypted_playbook, key);
+    try {
+        playbook = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    } catch(er) {
+        console.log('Wrong key. The alternative playbook will be used instead');
+        playbook = alternative_playbook;
+    }
+}
+else {
+    playbook = alternative_playbook;
+}
+
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -6,101 +37,6 @@ var con = mysql.createConnection({
   database: "db_playbook"
 });
 
-var values = [ 
-    [ 'NXYXVXW XX blxvxzxu X9X8', '' ],
-    [ 'NXYXVXW XX xxivxy X9X9', 'chxyck xv X94' ],
-    [ 'NXYXVXW XX xxivxy X9X0', '' ],
-    [ 'NXYXVXW XX xxivxy X94', '' ],
-    [ 'NXYXVXW XX blxvxzxu X94', '' ],
-    [ 'NXYXVXW XX xxivxy X0X9', '' ],
-    [ 'NXYXVXW XX counxuxyxw X9X0', 'fxvkxy X04 [xuxwxvp]' ],
-    [ 'NXYXVXW XX xuoxzxz XX', '[pull]' ],
-    [ 'NXYXVXW XX booxulxyg XX', '9,X8,6, XWB-flxvxu (fxvkxy X9X0)' ],
-    [ 'NXYXVXW XX fxvkxy xxivxy X9X9, xxoblxy 9, XUXY-xxxylxvy', 'pockxyxu' ],
-    [ 'NXYXVXW XX fxvkxy xxivxy X0X9, 0,0,0, XWB-xzwing', 'pockxyxu' ],
-    [ 'NXYXVXW XX 6,X8,X9, XWB-xzwing', 'XWB iz' ],
-    [ 'NXYXVXW XX QB xznxyxvk', '' ],
-    [ 'NXYXVXW I xxivxy X9X8', '' ],
-    [ 'NXYXVXW I blxvxzxu X9X9', '' ],
-    [ 'NXYXVXW I xxivxy X9X0', '' ],
-    [ 'NXYXVXW I blxvxzxu X9X0', '' ],
-    [ 'NXYXVXW I xxivxy X0X0', '' ],
-    [ 'NXYXVXW I counxuxyxw X94', 'fxvkxy X0X0 [xuxwxvp]' ],
-    [ 'NXYXVXW I xuoxzxz I', '[pull]' ],
-    [ 'NXYXVXW I booxulxyg I', '6,X8,9 (fxvkxy X94)' ],
-    [ 'FXVXW XX xxivxy X9X8', '' ],
-    [ 'FXVXW XX blxvxzxu X9X8', '' ],
-    [ 'FXVXW XX blxvxzxu X94', '' ],
-    [ 'FXVXW XX xxivxy X0X8', '' ],
-    [ 'FXVXW XX counxuxyxw X94', 'fxvkxy X0X0' ],
-    [ 'FXVXW XX booxulxyg XX', '9,X8,6 (fxvkxy X9X0)' ],
-    [ 'FXVXW XX xuoxzxz I', '' ],
-    [ 'FXVXW I xxivxy X9X9', '' ],
-    [ 'FXVXW I blxvxzxu X9X9', '' ],
-    [ 'FXVXW I blxvxzxu X9X0', '' ],
-    [ 'FXVXW I xxivxy X0X9', '' ],
-    [ 'FXVXW I counxuxyxw X9X0', 'fxvkxy X04' ],
-    [ 'FXVXW I xuoxzxz XX', '[pull?]' ],
-    [ 'FXVXW I booxulxyg I', '6,X8,9 (fxvkxy X94)' ],
-    [ 'XUXWIPXZ XX X9,pivoxu,X9', '' ],
-    [ 'XUXWIPXZ XX 0,0,bubblxy', '' ],
-    [ 'XUXWIPXZ XX 6,xzpoxu,xvxwxwow', '' ],
-    [ 'XUXWIPXZ XX xzhxvllow,0,xvxwxwow', '' ],
-    [ 'XUXWIPXZ XX xzhxvllow,0,whxyxyl', '' ],
-    [ 'XUXWIPXZ XX xzhxvllow,5,7', '' ],
-    [ 'XUXWIPXZ XX WXW xzcxwxyxyn', '' ],
-    [ 'XUXWIPXZ XX XWockxyxu xzcxwxyxyn', '' ],
-    [ 'XUXWIPXZ XX fxvkxy xzcxwxyxyn X8,7,XUXY-xxxylxvy', '' ],
-    [ 'XUXWIPXZ XX 9,X8,xvxwxwow', '' ],
-    [ 'XUXWIPXZ XX 9,whxyxyl,X8', '' ],
-    [ 'XUXWIPXZ XX xxivxy X94', 'bxvjo cxynxuxyxw' ],
-    [ 'XUXWIPXZ XX xuoxzxz I', 'bxvjo cxynxuxyxw [pull?]' ],
-    [ 'XUXWIPXZ XX 6,5,0', '' ],
-    [ 'XUXWIPXZ XX 8,6,X9', '' ],
-    [ 'XUXWIPXZ XX X9,X9,X9', '' ],
-    [ 'XUXWIPXZ XX xwxyvxyxwxzxy',
-    'QB bloquxyxv izq. (bxvjo cxynxuxyxw)' ],
-    [ 'XUXWIPXZ XX fxvkxy-xwxyvxyxwxzxy', 'bxvjo cxynxuxyxw' ],
-    [ 'XUXWIPXZ XX fxvkxy-xwxyvxyxwxzxy PXVXZXZ (XUXY-xxxylxvy)',
-    'QB bloquxyxv izq. (bxvjo cxynxuxyxw)' ],
-    [ 'XZLOXU xxoblxy X9,xvxwxwow', 'inxxicxvxw XX/I' ],
-    [ 'XZLOXU xxoblxy X9,pivoxu', 'inxxicxvxw XX/I' ],
-    [ 'XZLOXU xxoblxy X9,bubblxy', 'inxxicxvxw XX/I' ],
-    [ 'XZLOXU xxoblxy xzpoxu,7', 'inxxicxvxw XX/I' ],
-    [ 'XZLOXU xxoblxy xzpoxu,whxyxyl', 'inxxicxvxw XX/I' ],
-    [ 'XZLOXU xxoblxy WXW xzcxwxyxyn',
-    'bxvjo cxynxuxyxw + inxxicxvxw XX/I' ],
-    [ 'XZLOXU xxoblxy XWockxyxu xzcxwxyxyn',
-    'bxvjo cxynxuxyxw + inxxicxvxw XX/I' ],
-    [ 'XZLOXU xxoblxy fxvkxy xzcxwxyxyn,7',
-    'bxvjo cxynxuxyxw + inxxicxvxw XX/I' ],
-    [ 'XZLOXU xxoblxy pivoxu,xzpoxu', 'inxxicxvxw XX/I' ],
-    [ 'XZLOXU xxoblxy flxvxzh,6', 'inxxicxvxw XX/I' ],
-    [ 'XZLOXU xxoblxy 0,7', 'inxxicxvxw XX/I' ],
-    [ 'XZLOXU xxoblxy flxvxzh,7', 'inxxicxvxw XX/I' ],
-    [ 'XZLOXU xxoblxy flxvxzh,whxyxyl', 'inxxicxvxw XX/I' ],
-    [ 'XZLOXU xxoblxy xxxwxvw', 'inxxicxvxw XX/I' ],
-    [ 'XZLOXU xxoblxy QB-xxxwxvw', 'inxxicxvxw XX/I' ],
-    [ 'XZLOXU xxoblxy 8,7', 'inxxicxvxw XX/I' ] 
-];
-
-
-var unencryptPlaybook = function unencryptMyEncryptedPlaybook(key) {
-    var key2 = "UVWXYZ890";
-    values.forEach( function(element, index) {
-        for(a=0; a<2; a++) {
-            var playname = element[a];
-            for (var i = 0; i<key.length; i++) {
-                playname = playname.replace(new RegExp("X"+key2[i], "g"), key[i]);
-                playname = playname.replace(new RegExp("x"+key2[i].toLowerCase(), "g"), key[i].toLowerCase());
-            }
-        values[index][a] = playname;
-        }
-    });
-}
-
-if(process.argv[3] != undefined)
-    unencryptPlaybook(process.argv[3]);
 
 con.connect(function(err) {
     if (process.argv[2] ==undefined) {
@@ -129,7 +65,7 @@ con.connect(function(err) {
     /*Insert Data*/
     var sql = "INSERT INTO plays (name, notes) VALUES ?";
 
-    con.query(sql, [values], function (err, result) {
+    con.query(sql, [playbook], function (err, result) {
         if (err) throw err;
         console.log("Number of records inserted: " + result.affectedRows);
     });
